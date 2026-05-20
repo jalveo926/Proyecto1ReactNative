@@ -25,24 +25,12 @@ export default function SalidaScreen({ ventaDatos, navigateToVenta }) {
 
                     <View style={styles.resultContainer}>
                         <View style={styles.resultRow}>
-                            <Text style={styles.resultLabel}>Costo del Auto:</Text>
-                            <Text style={styles.resultValue}>${resultados.costo}</Text>
-                        </View>
-                        <View style={styles.resultRow}>
                             <Text style={styles.resultLabel}>Salario (30%):</Text>
                             <Text style={styles.resultValue}>${resultados.salario30}</Text>
                         </View>
                         <View style={styles.resultRow}>
                             <Text style={styles.resultLabel}>Letra Mensual:</Text>
                             <Text style={styles.resultValue}>${resultados.letraMensual}</Text>
-                        </View>
-                        <View style={styles.resultRow}>
-                            <Text style={styles.resultLabel}>Tipo de Auto:</Text>
-                            <Text style={styles.resultValue}>{ventaDatos.tipoAuto}</Text>
-                        </View>
-                        <View style={styles.resultRow}>
-                            <Text style={styles.resultLabel}>Forma de Pago:</Text>
-                            <Text style={styles.resultValue}>{ventaDatos.formaPago}</Text>
                         </View>
                         <View style={[styles.resultRow, styles.resultRowLast]}>
                             <Text style={styles.resultLabel}>Estado:</Text>
