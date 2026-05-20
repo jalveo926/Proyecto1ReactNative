@@ -31,7 +31,7 @@ export default StyleSheet.create({
         fontSize:16
     },
 
-    paymentContainer:{
+    radioContainer:{
         width:"100%",
         marginTop:15
     },
