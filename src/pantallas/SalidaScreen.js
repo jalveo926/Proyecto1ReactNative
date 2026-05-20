@@ -2,11 +2,9 @@ import { View, Text, Pressable } from 'react-native'
 import styles from '../styles/salidaStyles'
 import { calcularAuto } from '../servicios/calculoAuto'
 
-// DESESTRUCTURACIÓN: Extrae ventaDatos y navigateVenta de props
+// DESESTRUCTURACIÓN: Extrae props necesarios
 export default function SalidaScreen({ ventaDatos, navigateToVenta }) {
-    // OPERADOR TERNARIO: condición ? valorSiTrue : valorSiFalse
-    // Si ventaDatos existe, llama calcularAuto(), si no, asigna null
-    // Esto evita errores si los datos no llegan
+    // Operador ternario: Si ventaDatos existe, calcula resultados, si no devuelve null
     const resultados = ventaDatos ? calcularAuto(
         ventaDatos.costo, 
         ventaDatos.salario, 
@@ -17,27 +15,53 @@ export default function SalidaScreen({ ventaDatos, navigateToVenta }) {
 
     return (
         <View style={styles.container}>
-            <Text style={{fontSize: 20, marginBottom: 20, fontWeight: 'bold'}}>Resumen de Salida</Text>
+            <Text style={styles.title}>Resumen de Venta</Text>
             
-            {/* RENDERIZADO CONDICIONAL: && significa "solo renderiza si ambas condiciones son true" */}
-            {/* Esto verifica que tanto ventaDatos como resultados existan antes de mostrar */}
-            {ventaDatos && resultados && (
-                <View style={{width: '80%', paddingBottom: 20}}>
-                    <Text style={{fontSize: 16, marginBottom: 10}}>Costo: ${resultados.costo}</Text>
-                    <Text style={{fontSize: 16, marginBottom: 10}}>Salario: ${resultados.salario30}</Text>
-                    <Text style={{fontSize: 16, marginBottom: 10}}>Letra Mensual: ${resultados.letraMensual}</Text>
-                    <Text style={{fontSize: 16, marginBottom: 10}}>Tipo de Auto: {ventaDatos.tipoAuto}</Text>
-                    <Text style={{fontSize: 16, marginBottom: 10}}>Forma de Pago: {ventaDatos.formaPago}</Text>
-                    <Text style={{fontSize: 16, marginBottom: 10}}>Estado: {resultados.estado}</Text>
+            // Renderiza solo si ambos datos existen
+            {ventaDatos && resultados ? (
+                <>
+                    <View style={styles.statusBadge}>
+                        <Text style={styles.statusText}>TRANSACCION PROCESADA</Text>
+                    </View>
+
+                    <View style={styles.resultContainer}>
+                        <View style={styles.resultRow}>
+                            <Text style={styles.resultLabel}>Costo del Auto:</Text>
+                            <Text style={styles.resultValue}>${resultados.costo}</Text>
+                        </View>
+                        <View style={styles.resultRow}>
+                            <Text style={styles.resultLabel}>Salario (30%):</Text>
+                            <Text style={styles.resultValue}>${resultados.salario30}</Text>
+                        </View>
+                        <View style={styles.resultRow}>
+                            <Text style={styles.resultLabel}>Letra Mensual:</Text>
+                            <Text style={styles.resultValue}>${resultados.letraMensual}</Text>
+                        </View>
+                        <View style={styles.resultRow}>
+                            <Text style={styles.resultLabel}>Tipo de Auto:</Text>
+                            <Text style={styles.resultValue}>{ventaDatos.tipoAuto}</Text>
+                        </View>
+                        <View style={styles.resultRow}>
+                            <Text style={styles.resultLabel}>Forma de Pago:</Text>
+                            <Text style={styles.resultValue}>{ventaDatos.formaPago}</Text>
+                        </View>
+                        <View style={[styles.resultRow, styles.resultRowLast]}>
+                            <Text style={styles.resultLabel}>Estado:</Text>
+                            <Text style={styles.resultValue}>{resultados.estado}</Text>
+                        </View>
+                    </View>
+                </>
+            ) : (
+                <View style={styles.emptyState}>
+                    <Text style={styles.emptyStateText}>No hay datos disponibles</Text>
                 </View>
             )}
             
-            {/* onPress: Evento que se dispara cuando se toca el botón */}
             <Pressable 
-                style={{marginTop: 20, padding: 10, backgroundColor: '#34C759', borderRadius: 5}}
-                onPress={navigateToVenta}  {/* Ejecuta la función que vino como PROP */}
+                style={styles.button}
+                onPress={navigateToVenta}
             >
-                <Text style={{color: 'white', textAlign: 'center', fontSize: 16}}>Volver a Venta</Text>
+                <Text style={styles.buttonText}>← Volver a Venta</Text>
             </Pressable>
         </View>
     )

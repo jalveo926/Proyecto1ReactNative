@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Pressable } from "react-native"
+import { View, Text, TextInput, Pressable, ScrollView } from "react-native"
 import { useState } from "react"
 import { RadioButton } from "react-native-paper"
 import styles from "../styles/ventaStyles"
@@ -11,14 +11,16 @@ export default function VentaScreen({ navigateToSalida }) {
     const [tipoAuto,setTipoAuto] = useState("")
     const [formaPago,setFormaPago] = useState("")
     return (
-        <View style={styles.container}>
-            <Text>Venta de Auto</Text>
+        <ScrollView style={styles.container}>
+            <Text style={styles.title}>Venta de Auto</Text>
 
             <View style={styles.input}>
                 <Text style={styles.inputText}>Costo:</Text>
                 <TextInput
                     style={styles.textInput}
                     placeholder="Ingrese el costo del auto"
+                    placeholderTextColor="#A0AEC0"
+                    keyboardType="numeric"
                     onChangeText={(text) => setCosto(text)}
                 />
             </View>
@@ -28,39 +30,42 @@ export default function VentaScreen({ navigateToSalida }) {
                 <TextInput
                     style={styles.textInput}
                     placeholder="Ingrese el salario"
+                    placeholderTextColor="#A0AEC0"
+                    keyboardType="numeric"
                     onChangeText={(text) => setSalario(text)}
                 />
             </View>
 
             <View style={styles.radioContainer}>
-                <Text>Tipo de auto:</Text>
+                <Text style={styles.radioLabel}>Tipo de auto:</Text>
+                // Solo un RadioButton puede estar seleccionado
                 <RadioButton.Group onValueChange={(value) => setTipoAuto(value)} value={tipoAuto}>
                     
                     <View style={styles.radioButtonRow}>
-                        <RadioButton value="Manual" />
-                        <Text>Manual</Text>
+                        <RadioButton value="Manual" color="#7C3AED" />
+                        <Text style={styles.radioButtonText}>Manual</Text>
                     </View>
 
                     <View style={styles.radioButtonRow}>
-                        <RadioButton value="Automatico" />
-                        <Text>Automático</Text>
+                        <RadioButton value="Automatico" color="#7C3AED" />
+                        <Text style={styles.radioButtonText}>Automático</Text>
                     </View>
 
                 </RadioButton.Group>
             </View>
 
             <View style={styles.radioContainer}>
-                <Text>Forma de Pago:</Text>
+                <Text style={styles.radioLabel}>Forma de Pago:</Text>
                 <RadioButton.Group onValueChange={(value) => setFormaPago(value)} value={formaPago}>
                     
                     <View style={styles.radioButtonRow}>
-                        <RadioButton value="Credito" />
-                        <Text>Crédito</Text>
+                        <RadioButton value="Credito" color="#7C3AED" />
+                        <Text style={styles.radioButtonText}>Crédito</Text>
                     </View>
 
                     <View style={styles.radioButtonRow}>
-                        <RadioButton value="Contado" />
-                        <Text>Contado</Text>
+                        <RadioButton value="Contado" color="#7C3AED" />
+                        <Text style={styles.radioButtonText}>Contado</Text>
                     </View>
 
                 </RadioButton.Group>
@@ -71,20 +76,22 @@ export default function VentaScreen({ navigateToSalida }) {
                 <TextInput
                     style={styles.textInput}
                     placeholder="Ingrese la letra mensual"
+                    placeholderTextColor="#A0AEC0"
+                    keyboardType="numeric"
                     onChangeText={(text) => setLetraMensual(text)}
                 />
             </View>
 
             <Pressable 
-                style={{marginTop: 20, padding: 10, backgroundColor: '#007AFF', borderRadius: 5}}
+                style={styles.button}
                 onPress={() => {
                     const data = { costo, salario, letraMensual, tipoAuto, formaPago }
                     console.log(data)
                     navigateToSalida(data)
                 }}
             >
-                <Text style={{color: 'white', textAlign: 'center', fontSize: 16}}>Procesar transacción</Text>
+                <Text style={styles.buttonText}>Procesar transacción</Text>
             </Pressable>
-        </View>
+        </ScrollView>
     )
 }
