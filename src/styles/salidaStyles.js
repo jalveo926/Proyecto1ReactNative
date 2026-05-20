@@ -1,12 +1,11 @@
 import { StyleSheet } from "react-native"
 
-// Colores del tema violeta moderno
 const VIOLET_PRIMARY = '#7C3AED'
 const VIOLET_DARK = '#6D28D9'
 const VIOLET_LIGHT = '#EDE9FE'
 const TEXT_DARK = '#1F2937'
 const TEXT_LIGHT = '#6B7280'
-const SUCCESS_COLOR = '#10B981'  // Verde para éxito
+const SUCCESS_COLOR = '#10B981'
 
 export default StyleSheet.create({
     container:{
@@ -14,30 +13,32 @@ export default StyleSheet.create({
         justifyContent: "flex-start",
         alignItems: "center",
         paddingHorizontal: 24,
-        paddingVertical: 40,
-        backgroundColor: '#FFFFFF'
+        paddingTop: 52,        // un poco más de aire arriba
+        paddingBottom: 32,
+        backgroundColor: '#F9FAFB'  // gris muy suave en vez de blanco puro
     },
 
     title:{
-        fontSize: 28,
+        fontSize: 26,
         fontWeight: '700',
         color: TEXT_DARK,
-        marginBottom: 32,
-        letterSpacing: 0.5
+        marginBottom: 20,
+        letterSpacing: 0.3,
+        alignSelf: 'flex-start'  // alineado a la izquierda, se ve más natural
     },
 
     resultContainer:{
         width: '100%',
-        backgroundColor: VIOLET_LIGHT,
+        backgroundColor: '#FFFFFF',  // blanco sobre fondo gris, da profundidad
         borderRadius: 16,
-        padding: 24,
+        padding: 20,
         marginBottom: 24,
         borderLeftWidth: 4,
         borderLeftColor: VIOLET_PRIMARY,
         shadowColor: "#000",
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.08,
+        shadowRadius: 6,
         elevation: 3
     },
 
@@ -45,74 +46,65 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingVertical: 14,
+        paddingVertical: 12,
         borderBottomWidth: 1,
-        borderBottomColor: '#E5E7EB'
+        borderBottomColor: '#F3F4F6'  // línea más sutil
     },
 
     resultRowLast:{
-        borderBottomWidth: 0
+        borderBottomWidth: 0,
+        paddingTop: 14
     },
 
     resultLabel:{
-        fontSize: 15,
-        fontWeight: '600',
+        fontSize: 14,
+        fontWeight: '500',
         color: TEXT_LIGHT,
         flex: 1
     },
 
     resultValue:{
-        fontSize: 16,
+        fontSize: 15,
         fontWeight: '700',
-        color: VIOLET_DARK,
+        color: TEXT_DARK,  // oscuro en vez de violeta, más legible para datos
         flex: 1,
         textAlign: 'right'
     },
 
     statusBadge:{
-        alignSelf: 'center',
-        backgroundColor: SUCCESS_COLOR,
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        borderRadius: 20,
-        marginBottom: 24,
-        flexDirection: 'row',
+        alignSelf: 'stretch',        // ocupa todo el ancho
+        backgroundColor: VIOLET_PRIMARY,  // violeta en vez de verde (el estado ya dice APROBADO/NO)
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 10,
+        marginBottom: 20,
         alignItems: 'center',
-        shadowColor: SUCCESS_COLOR,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
         elevation: 2
     },
 
     statusText:{
         color: '#FFFFFF',
-        fontSize: 14,
+        fontSize: 13,
         fontWeight: '700',
-        letterSpacing: 0.5
+        letterSpacing: 1
     },
 
     button:{
         width: '100%',
-        height: 56,
+        height: 52,
         backgroundColor: VIOLET_PRIMARY,
         borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 24,
-        shadowColor: VIOLET_PRIMARY,
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 5
+        marginTop: 8,
+        elevation: 4
     },
 
     buttonText:{
         color: '#FFFFFF',
-        textAlign: 'center',
-        fontSize: 16,
+        fontSize: 15,
         fontWeight: '700',
-        letterSpacing: 0.5
+        letterSpacing: 0.3
     },
 
     emptyState:{
@@ -122,7 +114,7 @@ export default StyleSheet.create({
     },
 
     emptyStateText:{
-        fontSize: 16,
+        fontSize: 15,
         color: TEXT_LIGHT,
         fontWeight: '500'
     }
