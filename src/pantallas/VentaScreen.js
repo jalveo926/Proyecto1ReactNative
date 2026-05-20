@@ -38,7 +38,7 @@ export default function VentaScreen({ navigateToSalida }) {
 
             <View style={styles.radioContainer}>
                 <Text style={styles.radioLabel}>Tipo de auto:</Text>
-                // Solo un RadioButton puede estar seleccionado
+                {/* Solo un RadioButton puede estar seleccionado */}
                 <RadioButton.Group onValueChange={(value) => setTipoAuto(value)} value={tipoAuto}>
                     
                     <View style={styles.radioButtonRow}>
@@ -71,21 +71,10 @@ export default function VentaScreen({ navigateToSalida }) {
                 </RadioButton.Group>
             </View>
 
-            <View style={styles.input}> 
-                <Text style={styles.inputText}>Letra Mensual:</Text>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder="Ingrese la letra mensual"
-                    placeholderTextColor="#A0AEC0"
-                    keyboardType="numeric"
-                    onChangeText={(text) => setLetraMensual(text)}
-                />
-            </View>
-
             <Pressable 
                 style={styles.button}
                 onPress={() => {
-                    const data = { costo, salario, letraMensual, tipoAuto, formaPago }
+                    const data = { costo, salario, tipoAuto, formaPago }
                     console.log(data)
                     navigateToSalida(data)
                 }}

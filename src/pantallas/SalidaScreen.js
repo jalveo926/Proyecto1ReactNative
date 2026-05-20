@@ -7,17 +7,16 @@ export default function SalidaScreen({ ventaDatos, navigateToVenta }) {
     // Operador ternario: Si ventaDatos existe, calcula resultados, si no devuelve null
     const resultados = ventaDatos ? calcularAuto(
         ventaDatos.costo, 
-        ventaDatos.salario, 
-        ventaDatos.letraMensual,
-        ventaDatos.tipoAuto, 
-        ventaDatos.formaPago
+        ventaDatos.tipoAuto,
+        ventaDatos.formaPago, 
+        ventaDatos.salario
     ) : null
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Resumen de Venta</Text>
             
-            // Renderiza solo si ambos datos existen
+            {/* Renderiza solo si ambos datos existen */}
             {ventaDatos && resultados ? (
                 <>
                     <View style={styles.statusBadge}>
