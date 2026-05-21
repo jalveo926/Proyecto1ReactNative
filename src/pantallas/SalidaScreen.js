@@ -2,40 +2,63 @@ import { View, Text, Pressable } from 'react-native'
 import styles from '../styles/salidaStyles'
 import { calcularAuto } from '../servicios/calculoAuto'
 
-// DESESTRUCTURACIÓN: Extrae props necesarios
 export default function SalidaScreen({ ventaDatos, navigateToVenta }) {
-    // Operador ternario: Si ventaDatos existe, calcula resultados, si no devuelve null
     const resultados = ventaDatos ? calcularAuto(
-        ventaDatos.costo, 
+        ventaDatos.costo,
         ventaDatos.tipoAuto,
-        ventaDatos.formaPago, 
+        ventaDatos.formaPago,
         ventaDatos.salario
     ) : null
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Resumen de Venta</Text>
-            
-            {/* Renderiza solo si ambos datos existen */}
+
             {ventaDatos && resultados ? (
                 <>
                     <View style={styles.statusBadge}>
-                        <Text style={styles.statusText}>TRANSACCION PROCESADA</Text>
+                        <Text style={styles.statusText}>TRANSACCIÓN PROCESADA</Text>
                     </View>
 
                     <View style={styles.resultContainer}>
+
+                        {/* Campos comunes a ambos flujos */}
                         <View style={styles.resultRow}>
-                            <Text style={styles.resultLabel}>Salario (30%):</Text>
-                            <Text style={styles.resultValue}>${resultados.salario30}</Text>
+                            <Text style={styles.resultLabel}>Costo ajustado:</Text>
+                            <Text style={styles.resultValue}>${resultados.costo}</Text>
                         </View>
                         <View style={styles.resultRow}>
-                            <Text style={styles.resultLabel}>Letra Mensual:</Text>
-                            <Text style={styles.resultValue}>${resultados.letraMensual}</Text>
+                            <Text style={styles.resultLabel}>ITBM (7%):</Text>
+                            <Text style={styles.resultValue}>${resultados.impuesto}</Text>
                         </View>
-                        <View style={[styles.resultRow, styles.resultRowLast]}>
-                            <Text style={styles.resultLabel}>Estado:</Text>
-                            <Text style={styles.resultValue}>{resultados.estado}</Text>
+                        <View style={styles.resultRow}>
+                            <Text style={styles.resultLabel}>Gran Total:</Text>
+                            <Text style={styles.resultValue}>${resultados.total}</Text>
                         </View>
+
+                        {/* Campos exclusivos de crédito */}
+                        {resultados.tipo === "credito" && (
+                            <>
+                                <View style={styles.resultRow}>
+                                    <Text style={styles.resultLabel}>30% del Salario:</Text>
+                                    <Text style={styles.resultValue}>${resultados.salario30}</Text>
+                                </View>
+                                <View style={styles.resultRow}>
+                                    <Text style={styles.resultLabel}>Letra Mensual:</Text>
+                                    <Text style={styles.resultValue}>${resultados.letraMensual}</Text>
+                                </View>
+                                <View style={[styles.resultRow, styles.resultRowLast]}>
+                                    <Text style={styles.resultLabel}>Estado:</Text>
+                                    <Text style={[
+                                        styles.resultValue,
+                                        resultados.aprobado ? styles.aprobado : styles.noAprobado
+                                    ]}>
+                                        {resultados.estado}
+                                    </Text>
+                                </View>
+                            </>
+                        )}
+
                     </View>
                 </>
             ) : (
@@ -43,11 +66,8 @@ export default function SalidaScreen({ ventaDatos, navigateToVenta }) {
                     <Text style={styles.emptyStateText}>No hay datos disponibles</Text>
                 </View>
             )}
-            
-            <Pressable 
-                style={styles.button}
-                onPress={navigateToVenta}
-            >
+
+            <Pressable style={styles.button} onPress={navigateToVenta}>
                 <Text style={styles.buttonText}>← Volver a Venta</Text>
             </Pressable>
         </View>

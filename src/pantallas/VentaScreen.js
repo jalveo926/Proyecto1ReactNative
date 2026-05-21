@@ -7,7 +7,6 @@ export default function VentaScreen({ navigateToSalida }) {
     //Variables que utilizaremos para mostrar la información 
     const [costo,setCosto] = useState(0)
     const [salario,setSalario] = useState(0)
-    const [letraMensual,setLetraMensual] = useState(0)
     const [tipoAuto,setTipoAuto] = useState("")
     const [formaPago,setFormaPago] = useState("")
     return (
@@ -25,48 +24,50 @@ export default function VentaScreen({ navigateToSalida }) {
                 />
             </View>
             
-            <View style={styles.input}> 
-                <Text style={styles.inputText}>Salario:</Text>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder="Ingrese el salario"
-                    placeholderTextColor="#A0AEC0"
-                    keyboardType="numeric"
-                    onChangeText={(text) => setSalario(text)}
-                />
-            </View>
+            {/* Solo visible si seleccionó Crédito */}
+            {formaPago === "Credito" && (
+                <View style={styles.input}> 
+                    <Text style={styles.inputText}>Salario:</Text>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Ingrese el salario"
+                        placeholderTextColor="#A0AEC0"
+                        keyboardType="numeric"
+                        onChangeText={(text) => setSalario(text)}
+                    />
+                </View>
+            )}
 
             <View style={styles.radioContainer}>
                 <Text style={styles.radioLabel}>Tipo de auto:</Text>
-                {/* Solo un RadioButton puede estar seleccionado */}
                 <RadioButton.Group onValueChange={(value) => setTipoAuto(value)} value={tipoAuto}>
-                    
-                    <View style={styles.radioButtonRow}>
+
+                    <Pressable style={styles.radioButtonRow} onPress={() => setTipoAuto("Manual")}>
                         <RadioButton value="Manual" color="#7C3AED" />
                         <Text style={styles.radioButtonText}>Manual</Text>
-                    </View>
+                    </Pressable>
 
-                    <View style={styles.radioButtonRow}>
+                    <Pressable style={styles.radioButtonRow} onPress={() => setTipoAuto("Automatico")}>
                         <RadioButton value="Automatico" color="#7C3AED" />
                         <Text style={styles.radioButtonText}>Automático</Text>
-                    </View>
+                    </Pressable>
 
                 </RadioButton.Group>
             </View>
 
             <View style={styles.radioContainer}>
                 <Text style={styles.radioLabel}>Forma de Pago:</Text>
-                <RadioButton.Group onValueChange={(value) => setFormaPago(value)} value={formaPago}>
-                    
-                    <View style={styles.radioButtonRow}>
+                <RadioButton.Group onValueChange={(value) => { setFormaPago(value); setSalario("") }} value={formaPago}>
+
+                    <Pressable style={styles.radioButtonRow} onPress={() => { setFormaPago("Credito"); setSalario("") }}>
                         <RadioButton value="Credito" color="#7C3AED" />
                         <Text style={styles.radioButtonText}>Crédito</Text>
-                    </View>
+                    </Pressable>
 
-                    <View style={styles.radioButtonRow}>
+                    <Pressable style={styles.radioButtonRow} onPress={() => { setFormaPago("Contado"); setSalario("") }}>
                         <RadioButton value="Contado" color="#7C3AED" />
                         <Text style={styles.radioButtonText}>Contado</Text>
-                    </View>
+                    </Pressable>
 
                 </RadioButton.Group>
             </View>
