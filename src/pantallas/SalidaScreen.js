@@ -23,6 +23,8 @@ export default function SalidaScreen({ ventaDatos, navigateToVenta }) {
                     <View style={styles.resultContainer}>
 
                         {/* Campos comunes a ambos flujos */}
+                        {resultados.tipo === "contado" && (
+                            <>
                         <View style={styles.resultRow}>
                             <Text style={styles.resultLabel}>Costo ajustado:</Text>
                             <Text style={styles.resultValue}>${resultados.costo}</Text>
@@ -35,6 +37,8 @@ export default function SalidaScreen({ ventaDatos, navigateToVenta }) {
                             <Text style={styles.resultLabel}>Gran Total:</Text>
                             <Text style={styles.resultValue}>${resultados.total}</Text>
                         </View>
+                        </>
+                        )}
 
                         {/* Campos exclusivos de crédito */}
                         {resultados.tipo === "credito" && (
